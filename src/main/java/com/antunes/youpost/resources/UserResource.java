@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.antunes.youpost.domain.Post;
 import com.antunes.youpost.domain.User;
 import com.antunes.youpost.dto.UserDTO;
 import com.antunes.youpost.services.UserService;
@@ -61,6 +62,13 @@ public class UserResource {
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		User obj = service.findById(id);	
+		return ResponseEntity.ok().body(obj.getPosts());
+		
 	}
 
 }
