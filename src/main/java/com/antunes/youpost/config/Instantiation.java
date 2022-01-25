@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.antunes.youpost.domain.Post;
 import com.antunes.youpost.domain.User;
 import com.antunes.youpost.dto.AuthorDTO;
+import com.antunes.youpost.dto.ComentDTO;
 import com.antunes.youpost.repository.PostRepository;
 import com.antunes.youpost.repository.UserRepository;
 
@@ -40,6 +41,13 @@ public class Instantiation implements CommandLineRunner {
 		
 		Post post1 = new Post(null, sdf.parse("21/01/2022"), "Partiu viagem", "Vou viajar para São Paulo!", new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("12/01/2022"), "Hoje é dia de comprar roupas", "Vou comprar roupas para minha nova coleção.", new AuthorDTO(maria));	
+		
+		ComentDTO c1 = new ComentDTO("Boa viagem para você!!", sdf.parse("17/01/2022"), new AuthorDTO(alex));
+		ComentDTO c2 = new ComentDTO("Aproveita!", sdf.parse("18/01/2022"), new AuthorDTO(bob));
+		ComentDTO c3 = new ComentDTO("Tenha uma ótima semana!", sdf.parse("19/01/2022"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1, c2));
+		post2.getComments().addAll(Arrays.asList(c3));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
